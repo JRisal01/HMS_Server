@@ -3,12 +3,18 @@ const mongoose = require('mongoose')
 const app = express();
 const cors=require('cors')
 const bodyParser = require('body-parser');
+const userRoutes = require("./routes/users");
+const authRoutes = require("./routes/auth");
+
+
 require('dotenv/config')
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express());
 app.use( '/uploads', express.static('uploads'));
 app.use( '/galleryUploads', express.static('galleryUploads'));
+
+
 
 //Import Routes
 const roomRouter = require('./routes/room');
@@ -26,6 +32,10 @@ app.use('/contactMessage', contactMessageRouter)
 
 const login = require('./routes/login');
 app.use('/login', login)
+
+
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
 
 //connect To DB
